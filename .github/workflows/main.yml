@@ -1,0 +1,41 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    defaults:
+      run:
+        working-directory: 05-updated-source-from-asar
+
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save --no-package-lock electron electron-builder
+
+      - name: Build macOS application
+        run: npx electron-builder --mac dmg zip --publish never --config.directories.output=release-mac
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
+      - name: Upload macOS files
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rerun-Studio-macOS
+          path: 05-updated-source-from-asar/release-mac/*
+          if-no-files-found: error
