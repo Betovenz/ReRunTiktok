@@ -1,0 +1,45 @@
+{
+  "clonedAt": "2026-09-01T19:54:47.3328232+07:00",
+  "sourceUpdaterCache": "C:\\Users\\user\\AppData\\Local\\rerun-studio-updater",
+  "updaterCloneRoot": "C:\\BMK\\_Live\\Rerun-Studio-Updater-0.7.6-clone",
+  "feedConfig": "01-update-feed-and-config\\app-update.yml",
+  "provider": "github",
+  "owner": "panthilasii",
+  "repo": "rerun-studio-releases",
+  "updaterCacheDirName": "rerun-studio-updater",
+  "updateVersion": "0.7.6",
+  "updateInstaller": "02-updater-cache\\rerun-studio-updater\\pending\\Rerun-Studio-0.7.6-x64.exe",
+  "updateInstallerSha256": "7793A0D51AA979D3CD6BEBDD4F5FBE658C7D94388368CF015205131BDB92CDEB",
+  "updateInstallerSha512": "E58C58C3BD94061E16F4DE26EED5F00D1085A74901AE300880F281F8AEEE2F0278B4F91A423B8DA161D544C3C6594EEC096FA7C1D0A655893ED65CCC46BFC6DF",
+  "originalUpdateInfo": {
+    "fileName": "Rerun-Studio-0.7.6-x64.exe",
+    "sha512": "5YxYw72UBh4W9N4m7tXwDRCFp0kBrjAIgPKB+K7uLwJ4tPkaQjuNoWHVRMPGWU7sCW+nwdCmVYk+1lzMRr/G3w==",
+    "isAdminRightsRequired": false
+  },
+  "patchedAppAsar": "04-updated-packaged-app\\resources\\app.asar",
+  "patchedAppAsarSha256": "12F5827FB7DD4312C76BD8002985D699889FEDC7168675FABFDB5B7092A0BBAE",
+  "originalAppAsarBackup": "04-updated-packaged-app\\resources\\app.asar.original-0.7.6",
+  "originalAppAsarSha256": "4C1B457A9284F02629ED09A51878EEA285DF2541B5611FF6119D832516D07ACD",
+  "adminServerSha256": "547D8DE682829B7D6248EA3BCF543AFF02EA9EF9CBE5A9B91C6385D10FDFCDC7",
+  "loginFields": [
+    "customerCode",
+    "username",
+    "password"
+  ],
+  "licenseApiBase": "http://localhost:4140",
+  "packagedAppFiles": 103,
+  "sourceFromAsarFiles": 6625,
+  "adminWebFiles": 579,
+  "runBat": "START_UPDATER_CLONE.bat",
+  "runExe": "04-updated-packaged-app\\Rerun Studio.exe",
+  "rendererUi": {
+    "version": "v11 one-screen-console (mock-parity pass)",
+    "appliedAt": "2026-09-03",
+    "source": "07-new-ui-design (design handoff) + mock-sections",
+    "stack": "vanilla JS ไม่มี build step — dist/index.html + app.css + js/core.js + js/actions.js + js/views/*.js + js/app.js",
+    "fonts": "IBM Plex Sans Thai / IBM Plex Mono ฝังใน dist/assets/fonts",
+    "oldUiBackup": "_old-ui-backup/dist-old-react",
+    "oldAsarBackup": "_old-ui-backup/app.asar.before-ui-v11",
+    "sidebarNav": "แบบ B — แถบชี้ด้านซ้ายโปร่ง + ไอคอน SVG (3 ก.ย. 2569)"
+  }
+}

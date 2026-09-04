@@ -1,0 +1,15 @@
+{
+  "name": "livebmkode-adminweb",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "หน้าแอดมินจัดการลูกค้าและแพ็กเกจ LiveBMKode ต่อ MongoDB Atlas โดยตรง",
+  "main": "admin-server.js",
+  "scripts": {
+    "start": "node admin-server.js",
+    "check": "node --check admin-server.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.20.0"
+  }
+}

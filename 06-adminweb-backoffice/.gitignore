@@ -1,0 +1,4 @@
+node_modules/
+
+# มีรหัสผ่าน MongoDB ห้าม commit
+.env

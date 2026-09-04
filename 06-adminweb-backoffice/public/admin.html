@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LiveBMKode Admin</title>
+    <link rel="stylesheet" href="./admin.css?v=20260829-admin-dashboard" />
+  </head>
+  <body>
+    <section class="admin-login" id="adminLogin">
+      <form class="login-card" id="adminLoginForm" autocomplete="off">
+        <img src="./assets/bmkode-logo.jpg" alt="BMKODE" />
+        <div>
+          <span>LiveBMKode</span>
+          <h1>Admin Console</h1>
+        </div>
+        <label>Username <input id="adminUsername" autocomplete="username" required /></label>
+        <label>Password <input id="adminPassword" type="password" autocomplete="current-password" required /></label>
+        <button type="submit">เข้าสู่หลังบ้าน</button>
+        <p id="adminLoginMessage">จัดการแพ็กเกจ ลูกค้า และประกาศเข้าแอป</p>
+      </form>
+    </section>
+
+    <main class="admin-shell" id="adminShell" hidden>
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <img src="./assets/bmkode-logo.jpg" alt="" />
+          <div>
+            <b>LiveBMKode</b>
+            <span>Admin Console</span>
+          </div>
+        </div>
+
+        <nav class="side-nav" aria-label="Admin menu">
+          <button class="active" type="button" data-admin-page="overview"><span>ภาพรวม</span><b id="navOverviewCount">0</b></button>
+          <button type="button" data-admin-page="customers"><span>ลูกค้า</span><b id="navCustomersCount">0</b></button>
+          <button type="button" data-admin-page="packages"><span>แพ็กเกจ</span><b id="navPackagesCount">0</b></button>
+          <button type="button" data-admin-page="announcements"><span>ประกาศ</span><b id="navAnnouncementsCount">0</b></button>
+        </nav>
+      </aside>
+
+      <section class="admin-workspace">
+        <header class="admin-topbar">
+          <div>
+            <span id="pageEyebrow" hidden>สรุปข้อมูลทั้งหมด</span>
+            <h1 id="pageTitle">ภาพรวมระบบ</h1>
+          </div>
+          <label class="admin-search">
+            <span>⌕</span>
+            <input id="adminSearch" type="search" placeholder="ค้นหา..." />
+          </label>
+          <section class="global-search-panel" id="globalSearchPanel" hidden></section>
+          <nav>
+            <button class="theme-toggle" id="themeToggle" type="button"><span id="themeIcon">☾</span><b id="themeLabel">โหมดมืด</b></button>
+            <a href="/" target="_blank" rel="noreferrer">เปิดหน้าแอป</a>
+            <button id="adminLogout" type="button">ออกจากระบบ</button>
+          </nav>
+        </header>
+        <section class="admin-page active" id="page-overview">
+          <section class="stat-grid" id="adminStats"></section>
+          <section class="overview-grid">
+            <article class="panel dashboard-panel package-panel">
+              <div class="panel-head"><div><h2>แพ็กเกจขายดี</h2></div></div>
+              <div class="chart-list" id="packageChart"></div>
+            </article>
+            <article class="panel dashboard-panel trend-panel">
+              <div class="panel-head"><div><h2>ผู้ใช้ใหม่ 7 วัน</h2></div></div>
+              <div class="trend-chart" id="signupChart"></div>
+            </article>
+            <article class="panel dashboard-panel health-panel">
+              <div class="panel-head"><div><h2>สถานะลูกค้า</h2></div></div>
+              <div class="health-stack" id="customerHealth"></div>
+            </article>
+            <article class="panel dashboard-panel expiring-panel">
+              <div class="panel-head"><div><h2>ใกล้หมดอายุ</h2></div></div>
+              <div class="compact-list" id="expiringCustomers"></div>
+            </article>
+            <article class="panel dashboard-panel announcement-panel">
+              <div class="panel-head"><div><h2>ประกาศในแอป</h2></div></div>
+              <div class="compact-list" id="announcementStatus"></div>
+            </article>
+          </section>
+        </section>
+
+        <section class="admin-page" id="page-customers">
+          <article class="panel">
+            <div class="panel-head">
+              <div><h2>เพิ่มลูกค้า</h2></div>
+              <button type="button" data-reset-form="customer">ล้างฟอร์ม</button>
+            </div>
+            <form class="form-grid" id="customerForm">
+              <input id="customerId" type="hidden" />
+              <label>รหัสลูกค้า <input id="adminCustomerCode" required /></label>
+              <label>ชื่อลูกค้า <input id="adminCustomerName" /></label>
+              <label>Username <input id="adminCustomerUsername" required /></label>
+              <label>รหัสผ่าน <input id="adminCustomerPassword" type="password" autocomplete="new-password" required /></label>
+              <label>แพ็กเกจ <select id="adminCustomerPackage"></select></label>
+              <label>สถานะ <select id="adminCustomerStatus"><option value="active">active</option><option value="disabled">disabled</option></select></label>
+              <label>เริ่มใช้ <input id="adminCustomerStart" type="date" /></label>
+              <label>หมดอายุ <input id="adminCustomerExpire" type="date" /></label>
+              <label class="wide">โน้ตแอดมิน <input id="adminCustomerNote" /></label>
+              <button type="submit">บันทึกลูกค้า</button>
+            </form>
+            <div class="list-tools"><b id="customerResultText">0 รายการ</b></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>รหัสลูกค้า</th><th>Username</th><th>ชื่อลูกค้า</th><th>แพ็กเกจ</th><th>ช่อง</th><th>หมดอายุ</th><th>สถานะ</th><th></th></tr></thead>
+                <tbody id="customerRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="admin-page" id="page-packages">
+          <article class="panel">
+            <div class="panel-head">
+              <div><h2>แพ็กเกจ</h2></div>
+              <button type="button" data-reset-form="package">เพิ่มใหม่</button>
+            </div>
+            <form class="form-grid" id="packageForm">
+              <input id="packageId" type="hidden" />
+              <label>รหัสแพ็กเกจ <input id="packageCode" required /></label>
+              <label>ชื่อแพ็กเกจ <input id="packageName" required /></label>
+              <label>ราคา <input id="packagePrice" type="number" min="0" step="1" value="0" /></label>
+              <label>จำนวนช่อง <input id="packageChannelLimit" type="number" min="1" value="20" /></label>
+              <label>จำนวนวัน <input id="packageDurationDays" type="number" min="0" value="30" /></label>
+              <label class="wide">รายละเอียด <input id="packageDescription" /></label>
+              <label class="check"><input id="packageActive" type="checkbox" checked /> เปิดใช้งาน</label>
+              <button type="submit">บันทึกแพ็กเกจ</button>
+            </form>
+            <div class="list-tools"><b id="packageResultText">0 รายการ</b></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>แพ็กเกจ</th><th>ราคา</th><th>ช่อง</th><th>วัน</th><th>สถานะ</th><th></th></tr></thead>
+                <tbody id="packageRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="admin-page" id="page-announcements">
+          <article class="panel">
+            <div class="panel-head">
+              <div><h2>ประกาศเข้าแอป</h2></div>
+              <button type="button" data-reset-form="announcement">เพิ่มใหม่</button>
+            </div>
+            <form class="form-grid" id="announcementForm">
+              <input id="announcementId" type="hidden" />
+              <label>หัวข้อ <input id="announcementTitle" required /></label>
+              <label>ประเภท <select id="announcementType"><option value="info">info</option><option value="warning">warning</option><option value="promo">promo</option></select></label>
+              <label class="wide">ข้อความ <input id="announcementMessage" required /></label>
+              <label>เริ่มแสดง <input id="announcementStartsAt" type="datetime-local" /></label>
+              <label>หยุดแสดง <input id="announcementEndsAt" type="datetime-local" /></label>
+              <label class="check"><input id="announcementActive" type="checkbox" checked /> เปิดประกาศ</label>
+              <button type="submit">บันทึกประกาศ</button>
+            </form>
+            <div class="list-tools"><b id="announcementResultText">0 รายการ</b></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>ประกาศ</th><th>ประเภท</th><th>ช่วงเวลา</th><th>สถานะ</th><th></th></tr></thead>
+                <tbody id="announcementRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+    <section class="edit-dialog" id="customerEditDialog" hidden>
+      <form class="modal-card" id="customerEditForm">
+        <input id="editCustomerId" type="hidden" />
+        <div class="modal-head">
+          <div>
+            <span>แก้ไขข้อมูลลูกค้า</span>
+            <h2 id="customerEditTitle">ลูกค้า</h2>
+          </div>
+          <button type="button" class="icon-button" data-close-customer-edit>ปิด</button>
+        </div>
+        <div class="form-grid modal-grid">
+          <label>รหัสลูกค้า <input id="editCustomerCode" required /></label>
+          <label>ชื่อลูกค้า <input id="editCustomerName" /></label>
+          <label>Username <input id="editCustomerUsername" required /></label>
+          <label>แพ็กเกจ <select id="editCustomerPackage"></select></label>
+          <label>สถานะ <select id="editCustomerStatus"><option value="active">active</option><option value="disabled">disabled</option></select></label>
+          <label>เริ่มใช้ <input id="editCustomerStart" type="date" /></label>
+          <label>หมดอายุ <input id="editCustomerExpire" type="date" /></label>
+          <label class="wide">โน้ตแอดมิน <input id="editCustomerNote" /></label>
+          <label>เปลี่ยนรหัสผ่าน <input id="editCustomerPassword" type="password" autocomplete="new-password" /></label>
+          <label>ยืนยันรหัสผ่านใหม่ <input id="editCustomerPasswordConfirm" type="password" autocomplete="new-password" /></label>
+        </div>
+        <p class="form-message" id="customerEditMessage"></p>
+        <div class="modal-actions">
+          <button type="button" data-close-customer-edit>ยกเลิก</button>
+          <button type="submit">บันทึกการแก้ไข</button>
+        </div>
+      </form>
+    </section>
+    <script src="./admin.js?v=20260829-global-search-2"></script>
+  </body>
+</html>

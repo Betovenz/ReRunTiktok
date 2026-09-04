@@ -1,0 +1,25 @@
+  <aside style="position:relative; width:240px; flex-shrink:0; display:flex; flex-direction:column; padding:20px 14px; border-right:1px solid {{ T.surface2 }}; background:{{ T.side }}">
+    <div style="{{ sideTopStyle }}"><div style="display:flex; align-items:center; gap:10px; padding:0 8px 18px"><div style="width:34px; height:34px; border-radius:10px; background:{{ T.primary }}; display:grid; place-items:center; color:#fff; font-weight:700; font-size:15px">R</div><div><div style="font-weight:700; font-size:15px; line-height:1.1">Rerun <span style="color:{{ T.accentHi }}">Studio</span></div><div style="font-size:11px; color:{{ T.faint }}; margin-top:2px">ไลฟ์วนคลิปอัตโนมัติ</div></div></div>
+    <nav style="display:flex; flex-direction:column; gap:6px">
+      <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="5"><div style="{{ it.style }}" onClick="{{ it.onClick }}"><span style="width:24px; text-align:center; font-size:18px">{{ it.icon }}</span><span style="flex:1">{{ it.label }}</span><sc-if value="{{ it.liveDot }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px; font-weight:700; color:#fff; background:#FF4D4F; padding:1px 7px; border-radius:999px; animation:livePulse 1.2s infinite">LIVE</span></sc-if></div></sc-for>
+    </nav>
+    <sc-if value="{{ liveHeaderPill }}" hint-placeholder-val="{{ false }}"><button style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:8px; height:40px; border:1px solid rgba(255,77,79,.4); border-radius:12px; background:rgba(255,77,79,.12); color:{{ T.redText }}; font-size:12.5px; font-weight:700; cursor:pointer" onClick="{{ goControl }}"><span style="width:8px; height:8px; border-radius:99px; background:#FF4D4F; animation:livePulse 1.2s infinite"></span>ON AIR {{ elapsed }}</button></sc-if>
+    <div style="flex:1"></div>
+    
+    </div>
+    <div style="{{ bottomInfoStyle }}"><div style="{{ curCardStyle }}">
+      <div style="display:flex; align-items:center; gap:10px"><span style="{{ curShop.avStyle }}">{{ curShop.initial }}</span><div style="flex:1; min-width:0"><div style="font-size:11px; color:{{ T.muted }}; letter-spacing:.4px">ร้านที่เลือกอยู่</div><div style="font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ curShop.name }}</div></div></div>
+      <div style="{{ curStatusStyle }}"><span style="{{ curDotStyle }}"></span>{{ curStatusText }}</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px; padding:0 6px; font-size:11.5px; color:{{ T.muted }}; flex-shrink:0"><span style="width:7px; height:7px; border-radius:99px; background:{{ T.green }}"></span>ระบบพร้อม · FFmpeg ✓ · เน็ต ✓ · ไหว 2 บัญชี</div></div>
+    <button style="{{ themeBtnStyle }}" style-hover="border-color:{{ T.primary }}; color:{{ T.text }}" onClick="{{ toggleTheme }}">{{ themeLabel }}</button>
+    <div style="{{ shopBlockStyle }}">
+      <div style="display:flex; align-items:center; gap:12px; padding:9px 12px; border-radius:14px; cursor:pointer; user-select:none; background:{{ T.surface }}; border:1px solid {{ T.border }}; transition:border-color .15s" style-hover="border-color:{{ T.borderHi }}" onClick="{{ toggleShops }}"><span style="width:34px; height:34px; border-radius:11px; background:{{ T.surface2 }}; color:{{ T.muted }}; display:grid; place-items:center; font-size:15px; flex-shrink:0">▤</span><div style="flex:1; min-width:0"><div style="font-size:14px; font-weight:700; color:{{ T.text }}">{{ shopsTitle }}</div><div style="font-size:11.5px; color:{{ T.muted }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ shopCount }} ร้าน</div></div><span style="{{ chevStyle }}">⌃</span></div>
+      <div style="{{ shopsPanelStyle }}">
+        <div style="display:flex; flex-direction:column; gap:2px; padding:4px 0 2px; flex:1; min-height:0; overflow:auto">
+          <sc-for list="{{ shops }}" as="sp" hint-placeholder-count="10"><div style="{{ sp.rowStyle }}" onClick="{{ sp.onClick }}"><span style="{{ sp.avStyle }}">{{ sp.initial }}</span><div style="flex:1; min-width:0"><div style="font-size:13.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ sp.name }}</div><div style="font-size:11.5px; color:{{ T.faint }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">@{{ sp.handle }}</div></div><span style="{{ sp.stStyle }}">{{ sp.st }}</span></div></sc-for>
+          <div style="height:44px; flex-shrink:0; margin-top:6px; border-radius:12px; display:flex; align-items:center; gap:12px; padding:0 10px; font-size:13px; color:{{ T.accentHi }}; font-weight:600; cursor:pointer" style-hover="background:{{ T.surface }}"><span style="width:34px; height:34px; border-radius:11px; border:1px dashed {{ T.borderHi }}; display:grid; place-items:center">+</span>เพิ่มบัญชี</div>
+        </div>
+      </div>
+    </div>
+  </aside>

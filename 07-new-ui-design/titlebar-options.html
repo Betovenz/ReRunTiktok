@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rerun Studio — เลือกแถบบนหน้าต่าง 4 แบบ</title>
+<style>
+:root{
+  --bg:#0B0D12; --side:#0E1117; --surface:#12151C; --surface2:#1A1F29; --hover:#232C3A;
+  --border:#262D3A; --borderHi:#3B475A; --text:#F2F5F9; --muted:#8A94A6; --faint:#5B6678;
+  --navText:#B8C2D3; --tint:#152238; --redTint2:#1C1216; --accentHi:#60A5FA; --green:#3DDC84;
+  --redText:#FF7875; --amber:#F5B83D; --greenRgb:61,220,132; --primary:#1E3A8A;
+  --primaryDeep:#172554; --primaryHover:#274BA8; --blueRgb:30,58,138; --red:#FF4D4F;
+  --font:"IBM Plex Sans Thai","Leelawadee UI","Noto Sans Thai",Tahoma,sans-serif;
+  --mono:"IBM Plex Mono","Cascadia Mono",Consolas,monospace;
+}
+:root[data-theme="light"]{
+  --bg:#F4F6FA; --side:#FFFFFF; --surface:#FFFFFF; --surface2:#EEF2F7; --hover:#E4E9F1;
+  --border:#DDE3EC; --borderHi:#C5CEDB; --text:#111827; --muted:#5B6B85; --faint:#8A96AA;
+  --navText:#4B5566; --tint:#E3E9F5; --redTint2:#FBEAEA; --accentHi:#1E3A8A; --green:#16A34A;
+  --redText:#DC2626; --amber:#B45309; --greenRgb:22,163,74;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;padding:26px 30px 60px}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.page-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+h1{font-size:24px;margin:0;font-weight:700}
+.sub{color:var(--muted);font-size:13.5px;margin:4px 0 22px;line-height:1.7;max-width:860px}
+.themebtn{margin-left:auto;height:36px;padding:0 14px;border:1px solid var(--border);border-radius:10px;
+  background:none;color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.themebtn:hover{border-color:var(--primary);color:var(--text)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:1180px){.grid{grid-template-columns:1fr}}
+
+.opt{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.opt-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.opt-tag{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--primary);
+  padding:3px 9px;border-radius:6px}
+.opt-name{font-size:17px;font-weight:700}
+.opt-why{font-size:12.5px;color:var(--muted);line-height:1.65}
+.opt-meta{font-size:11.5px;color:var(--faint);line-height:1.6;border-top:1px solid var(--surface2);padding-top:10px}
+.opt-meta b{color:var(--muted);font-weight:600}
+
+/* ---- หน้าต่างจำลอง ---- */
+.win{border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--bg);
+  box-shadow:0 18px 44px rgba(0,0,0,.35);position:relative}
+:root[data-theme="light"] .win{box-shadow:0 18px 44px rgba(16,24,40,.14)}
+.win.round{border-radius:16px}
+.body{display:flex;height:238px}
+.side{width:132px;flex-shrink:0;background:var(--side);border-right:1px solid var(--surface2);
+  padding:11px 9px;display:flex;flex-direction:column;gap:5px}
+.brand{display:flex;align-items:center;gap:7px;padding:0 4px 10px}
+.mark{width:22px;height:22px;border-radius:7px;background:var(--primary);display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:11px;flex-shrink:0}
+.bname{font-weight:700;font-size:11.5px;line-height:1.1}
+.bname i{color:var(--accentHi);font-style:normal}
+.bsub{font-size:8px;color:var(--faint);margin-top:1px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.ni{display:flex;align-items:center;gap:8px;height:26px;padding:0 9px;border-radius:8px;
+  font-size:11px;color:var(--navText);font-weight:600}
+.ni.on{background:var(--primary);color:#fff;font-weight:700;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 6px rgba(var(--blueRgb),.3)}
+.ni span:first-child{width:13px;text-align:center;font-size:11px}
+.ni .lv{margin-left:auto;font-size:7px;font-weight:700;color:#fff;background:var(--red);
+  padding:1px 5px;border-radius:99px;animation:livePulse 1.2s infinite}
+.grow{flex:1}
+.shopcard{border-radius:9px;padding:7px;border:1px solid var(--primary);
+  background:linear-gradient(160deg,var(--tint),var(--surface))}
+.shoprow{display:flex;align-items:center;gap:6px}
+.av{width:19px;height:19px;border-radius:6px;background:var(--primary);display:grid;place-items:center;
+  color:#fff;font-size:9px;font-weight:700;flex-shrink:0}
+.shopname{font-size:10px;font-weight:700}
+.shopeye{font-size:7.5px;color:var(--muted)}
+.shopst{margin-top:5px;height:19px;border-radius:6px;background:rgba(var(--greenRgb),.12);
+  color:var(--green);font-size:8.5px;font-weight:700;display:flex;align-items:center;gap:5px;padding:0 7px}
+.dot{width:5px;height:5px;border-radius:99px;background:var(--green)}
+
+.main{flex:1;min-width:0;padding:13px 15px;display:flex;flex-direction:column;gap:9px;position:relative}
+.h2{font-size:16px;font-weight:700;line-height:1.25}
+.p{font-size:9.5px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.c{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 10px}
+.ck{font-size:8px;color:var(--muted)}
+.cv{font-size:15px;font-weight:600;font-family:var(--mono);margin-top:2px}
+.cta{margin-top:auto;height:34px;border-radius:9px;background:var(--primary);color:#fff;
+  font-size:12px;font-weight:700;display:grid;place-items:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 3px 10px rgba(var(--blueRgb),.28)}
+
+/* ---- ปุ่มควบคุมหน้าต่าง ---- */
+.wc{display:flex;height:100%;margin-left:auto}
+.wc b{width:44px;display:grid;place-items:center;font-size:11px;color:var(--muted);
+  font-weight:400;font-family:var(--mono);cursor:default}
+.wc b:hover{background:var(--hover);color:var(--text)}
+.wc b.x:hover{background:#E5484D;color:#fff}
+.wc.compact b{width:36px;height:100%}
+
+.lights{display:flex;gap:7px;align-items:center}
+.lights i{width:12px;height:12px;border-radius:99px;display:block}
+.lights .r{background:#FF5F57}.lights .y{background:#FEBC2E}.lights .g{background:#28C840}
+
+.onairpill{display:flex;align-items:center;gap:6px;height:23px;padding:0 10px;border-radius:99px;
+  background:rgba(255,77,79,.14);border:1px solid rgba(255,77,79,.4);color:var(--redText);
+  font-size:10px;font-weight:700}
+.onairpill .d{width:6px;height:6px;border-radius:99px;background:var(--red);animation:livePulse 1.2s infinite}
+.mini-mono{font-family:var(--mono)}
+
+/* A · ไร้แถบ */
+.a-float{position:absolute;top:8px;right:8px;display:flex;height:28px;border-radius:8px;
+  background:rgba(120,132,155,.14);backdrop-filter:blur(6px);overflow:hidden}
+.a-float b{width:34px;display:grid;place-items:center;font-size:10px;color:var(--muted);font-family:var(--mono)}
+.a-float b:hover{background:var(--hover);color:var(--text)}
+.a-float b.x:hover{background:#E5484D;color:#fff}
+.a-drag{position:absolute;top:0;left:0;right:0;height:40px}
+
+/* B · แถบบางมีแบรนด์ */
+.b-bar{height:38px;display:flex;align-items:center;gap:10px;padding-left:12px;
+  background:var(--side);border-bottom:1px solid var(--surface2)}
+.b-bar .t{font-size:11.5px;font-weight:700}
+.b-bar .t i{color:var(--accentHi);font-style:normal}
+
+/* C · แถบสถานะ */
+.c-bar{height:46px;display:flex;align-items:center;gap:12px;padding-left:16px;
+  background:linear-gradient(180deg,var(--redTint2),var(--side));border-bottom:1px solid var(--surface2)}
+.c-crumb{font-size:12.5px;font-weight:700}
+.c-crumb em{color:var(--faint);font-style:normal;font-weight:400;margin:0 6px}
+.c-chip{height:24px;padding:0 10px;border-radius:8px;border:1px solid var(--border);
+  color:var(--muted);font-size:10.5px;font-weight:600;display:flex;align-items:center;gap:5px}
+
+/* D · macOS */
+.d-bar{height:42px;display:flex;align-items:center;padding:0 14px;background:var(--surface);
+  border-bottom:1px solid var(--surface2);position:relative}
+.d-title{position:absolute;left:0;right:0;text-align:center;font-size:12px;font-weight:600;
+  color:var(--muted);pointer-events:none}
+.d-right{margin-left:auto;display:flex;align-items:center;gap:8px;z-index:1}
+
+.note{margin-top:30px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);
+  border-radius:14px;padding:16px 20px;font-size:13px;line-height:1.75;color:var(--muted);max-width:900px}
+.note b{color:var(--text)}
+.note code{font-family:var(--mono);font-size:12px;background:var(--surface2);padding:1px 6px;border-radius:5px;color:var(--text)}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>แถบบนหน้าต่าง — เลือก 4 แบบ</h1>
+  <button class="themebtn" id="tbtn">🌙 สลับเป็นโหมดสว่าง</button>
+</div>
+<p class="sub">
+  ทั้ง 4 แบบเอา title bar กับเมนู <b>File / Edit / View / Window / Help</b> ของ Windows ออกหมด แล้วทำแถบเองในแอป
+  (ปุ่ม ย่อ–ขยาย–ปิด ยังใช้ได้ปกติ · ลากย้ายหน้าต่างได้ · ดับเบิลคลิกเพื่อขยายเต็มจอได้)
+  ภาพด้านล่างเป็นหน้าต่างจำลองย่อส่วน กดปุ่มมุมขวาบนเพื่อดูทั้งโหมดมืดและสว่าง
+</p>
+
+<div class="grid">
+
+  <!-- ============ A ============ -->
+  <div class="opt">
+    <div class="opt-head"><span class="opt-tag">แบบ A</span><span class="opt-name">ไร้แถบ · ปุ่มลอย</span></div>
+    <div class="opt-why">ไม่มีแถบบนเลย ได้พื้นที่ใช้งานเต็มที่สุด ปุ่มหน้าต่างลอยอยู่มุมขวาบนแบบโปร่งใส ลากย้ายหน้าต่างได้จากพื้นที่ว่างแถวบน — แนวเดียวกับ Arc / Linear</div>
+    <div class="win">
+      <div class="body">
+        <div class="side">
+          <div class="brand"><div class="mark">R</div><div><div class="bname">Rerun <i>Studio</i></div><div class="bsub">ไลฟ์วนคลิปอัตโนมัติ</div></div></div>
+          <div class="nav">
+            <div class="ni on"><span>⌂</span><span>หน้าแรก</span></div>
+            <div class="ni"><span>▶</span><span>ไลฟ์</span><span class="lv">LIVE</span></div>
+            <div class="ni"><span>▤</span><span>คลัง</span></div>
+            <div class="ni"><span>▥</span><span>ผลงาน</span></div>
+            <div class="ni"><span>⚙</span><span>ตั้งค่า</span></div>
+          </div>
+          <div class="grow"></div>
+          <div class="shopcard"><div class="shoprow"><div class="av">ร</div><div><div class="shopeye">ร้านที่เลือกอยู่</div><div class="shopname">ร้านหลัก</div></div></div><div class="shopst"><span class="dot"></span>พร้อมไลฟ์ · ว่างอยู่</div></div>
+        </div>
+        <div class="main">
+          <div class="a-drag"></div>
+          <div class="a-float"><b>─</b><b>▢</b><b class="x">✕</b></div>
+          <div class="h2">พร้อมไลฟ์รอบนี้<br>หรือยัง คุณเอ</div>
+          <div class="p">ค่าตั้งจากรอบล่าสุดโหลดไว้แล้ว</div>
+          <div class="cards">
+            <div class="c"><div class="ck">ไลฟ์สัปดาห์นี้</div><div class="cv">12</div></div>
+            <div class="c"><div class="ck">ยอดขาย 7 วัน</div><div class="cv" style="color:var(--green)">128,400</div></div>
+            <div class="c"><div class="ck">จบปกติ</div><div class="cv">11<span style="color:var(--faint)">/12</span></div></div>
+          </div>
+          <div class="cta">▶ เริ่มไลฟ์เลย</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-meta"><b>ได้พื้นที่จอเพิ่ม:</b> มากที่สุด (0 px) · <b>เหมาะกับ:</b> คนที่อยากได้จอโล่ง ๆ · <b>ข้อควรคิด:</b> ปุ่มปิดทับเนื้อหาเล็กน้อย และพื้นที่ลากหน้าต่างมองไม่เห็นด้วยตา</div>
+  </div>
+
+  <!-- ============ B ============ -->
+  <div class="opt">
+    <div class="opt-head"><span class="opt-tag">แบบ B</span><span class="opt-name">แถบบางมีแบรนด์</span></div>
+    <div class="opt-why">แถบสูง 38px สีเดียวกับ sidebar มีโลโก้กับชื่อแอปซ้าย ป้าย ON AIR กลาง ปุ่มหน้าต่างขวา — คุ้นมือที่สุด เห็นชัดว่าลากตรงไหน แนวเดียวกับ VS Code / Figma</div>
+    <div class="win">
+      <div class="b-bar">
+        <div class="mark" style="width:19px;height:19px;border-radius:6px;font-size:10px">R</div>
+        <div class="t">Rerun <i>Studio</i></div>
+        <div class="onairpill" style="margin-left:14px"><span class="d"></span>ON AIR <span class="mini-mono">01:24:07</span></div>
+        <div class="wc"><b>─</b><b>▢</b><b class="x">✕</b></div>
+      </div>
+      <div class="body" style="height:200px">
+        <div class="side">
+          <div class="nav" style="margin-top:2px">
+            <div class="ni on"><span>⌂</span><span>หน้าแรก</span></div>
+            <div class="ni"><span>▶</span><span>ไลฟ์</span><span class="lv">LIVE</span></div>
+            <div class="ni"><span>▤</span><span>คลัง</span></div>
+            <div class="ni"><span>▥</span><span>ผลงาน</span></div>
+            <div class="ni"><span>⚙</span><span>ตั้งค่า</span></div>
+          </div>
+          <div class="grow"></div>
+          <div class="shopcard"><div class="shoprow"><div class="av">ร</div><div><div class="shopeye">ร้านที่เลือกอยู่</div><div class="shopname">ร้านหลัก</div></div></div><div class="shopst"><span class="dot"></span>พร้อมไลฟ์ · ว่างอยู่</div></div>
+        </div>
+        <div class="main">
+          <div class="h2">พร้อมไลฟ์รอบนี้<br>หรือยัง คุณเอ</div>
+          <div class="p">ค่าตั้งจากรอบล่าสุดโหลดไว้แล้ว</div>
+          <div class="cards">
+            <div class="c"><div class="ck">ไลฟ์สัปดาห์นี้</div><div class="cv">12</div></div>
+            <div class="c"><div class="ck">ยอดขาย 7 วัน</div><div class="cv" style="color:var(--green)">128,400</div></div>
+            <div class="c"><div class="ck">จบปกติ</div><div class="cv">11<span style="color:var(--faint)">/12</span></div></div>
+          </div>
+          <div class="cta">▶ เริ่มไลฟ์เลย</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-meta"><b>ได้พื้นที่จอเพิ่ม:</b> 38 px (เดิมเสีย 60 px) · <b>เหมาะกับ:</b> ใช้งานทั่วไป ปลอดภัยที่สุด · <b>ข้อดีพิเศษ:</b> เห็นเวลาไลฟ์ได้ตลอดแม้อยู่หน้าอื่น</div>
+  </div>
+
+  <!-- ============ C ============ -->
+  <div class="opt">
+    <div class="opt-head"><span class="opt-tag">แบบ C</span><span class="opt-name">แถบสถานะ · ทำงานได้</span></div>
+    <div class="opt-why">แถบสูง 46px ใช้เป็นแถบสถานะจริง ๆ บอกว่าอยู่หน้าไหน ร้านไหน ระบบพร้อมไหม พร้อมปุ่มลัดที่ใช้บ่อย ตอนไลฟ์แถบจะไล่สีแดงจาง ๆ — แนวเดียวกับ Slack / Notion</div>
+    <div class="win">
+      <div class="c-bar">
+        <div class="c-crumb">หน้าแรก<em>·</em>ร้านหลัก</div>
+        <div class="onairpill"><span class="d"></span>ON AIR <span class="mini-mono">01:24:07</span></div>
+        <div class="c-chip"><span class="dot"></span>FFmpeg ✓ · ไหว 2 บัญชี</div>
+        <div class="c-chip" style="color:var(--accentHi);border-color:var(--primary)">⬇ อัปเดตพร้อมติดตั้ง</div>
+        <div class="wc"><b>─</b><b>▢</b><b class="x">✕</b></div>
+      </div>
+      <div class="body" style="height:192px">
+        <div class="side">
+          <div class="brand" style="padding-bottom:8px"><div class="mark">R</div><div><div class="bname">Rerun <i>Studio</i></div></div></div>
+          <div class="nav">
+            <div class="ni on"><span>⌂</span><span>หน้าแรก</span></div>
+            <div class="ni"><span>▶</span><span>ไลฟ์</span><span class="lv">LIVE</span></div>
+            <div class="ni"><span>▤</span><span>คลัง</span></div>
+            <div class="ni"><span>▥</span><span>ผลงาน</span></div>
+            <div class="ni"><span>⚙</span><span>ตั้งค่า</span></div>
+          </div>
+          <div class="grow"></div>
+          <div class="shopcard"><div class="shoprow"><div class="av">ร</div><div><div class="shopeye">ร้านที่เลือกอยู่</div><div class="shopname">ร้านหลัก</div></div></div></div>
+        </div>
+        <div class="main">
+          <div class="h2">พร้อมไลฟ์รอบนี้<br>หรือยัง คุณเอ</div>
+          <div class="cards">
+            <div class="c"><div class="ck">ไลฟ์สัปดาห์นี้</div><div class="cv">12</div></div>
+            <div class="c"><div class="ck">ยอดขาย 7 วัน</div><div class="cv" style="color:var(--green)">128,400</div></div>
+            <div class="c"><div class="ck">จบปกติ</div><div class="cv">11<span style="color:var(--faint)">/12</span></div></div>
+          </div>
+          <div class="cta">▶ เริ่มไลฟ์เลย</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-meta"><b>ได้พื้นที่จอเพิ่ม:</b> 14 px · <b>เหมาะกับ:</b> คนไลฟ์หลายบัญชี ต้องเห็นสถานะตลอด · <b>ข้อดีพิเศษ:</b> ย้ายแถบสถานะระบบออกจาก sidebar มาไว้ตรงนี้ ทำให้ sidebar โล่งขึ้น</div>
+  </div>
+
+  <!-- ============ D ============ -->
+  <div class="opt">
+    <div class="opt-head"><span class="opt-tag">แบบ D</span><span class="opt-name">แบบ Mac · มุมมนนุ่ม</span></div>
+    <div class="opt-why">ปุ่มกลมสามสีอยู่ซ้าย ชื่อหน้าอยู่กลาง หน้าต่างมุมมนขึ้น ดูนุ่มและพรีเมียมกว่าแบบ Windows ทั่วไป — คนละอารมณ์กับอีก 3 แบบชัดเจน</div>
+    <div class="win round">
+      <div class="d-bar">
+        <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+        <div class="d-title">Rerun Studio — ร้านหลัก</div>
+        <div class="d-right"><div class="onairpill"><span class="d"></span>ON AIR <span class="mini-mono">01:24:07</span></div></div>
+      </div>
+      <div class="body" style="height:196px">
+        <div class="side">
+          <div class="brand" style="padding-bottom:8px"><div class="mark">R</div><div><div class="bname">Rerun <i>Studio</i></div></div></div>
+          <div class="nav">
+            <div class="ni on"><span>⌂</span><span>หน้าแรก</span></div>
+            <div class="ni"><span>▶</span><span>ไลฟ์</span><span class="lv">LIVE</span></div>
+            <div class="ni"><span>▤</span><span>คลัง</span></div>
+            <div class="ni"><span>▥</span><span>ผลงาน</span></div>
+            <div class="ni"><span>⚙</span><span>ตั้งค่า</span></div>
+          </div>
+          <div class="grow"></div>
+          <div class="shopcard"><div class="shoprow"><div class="av">ร</div><div><div class="shopeye">ร้านที่เลือกอยู่</div><div class="shopname">ร้านหลัก</div></div></div></div>
+        </div>
+        <div class="main">
+          <div class="h2">พร้อมไลฟ์รอบนี้<br>หรือยัง คุณเอ</div>
+          <div class="p">ค่าตั้งจากรอบล่าสุดโหลดไว้แล้ว</div>
+          <div class="cards">
+            <div class="c"><div class="ck">ไลฟ์สัปดาห์นี้</div><div class="cv">12</div></div>
+            <div class="c"><div class="ck">ยอดขาย 7 วัน</div><div class="cv" style="color:var(--green)">128,400</div></div>
+            <div class="c"><div class="ck">จบปกติ</div><div class="cv">11<span style="color:var(--faint)">/12</span></div></div>
+          </div>
+          <div class="cta">▶ เริ่มไลฟ์เลย</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-meta"><b>ได้พื้นที่จอเพิ่ม:</b> 18 px · <b>เหมาะกับ:</b> อยากได้ลุคพรีเมียม ไม่เหมือนโปรแกรม Windows ทั่วไป · <b>ข้อควรคิด:</b> คนไทยที่ใช้ Windows อาจงงปุ่มกลมสามสีตอนแรก</div>
+  </div>
+
+</div>
+
+<div class="note">
+  <b>ทุกแบบต้องแก้ 3 จุดเหมือนกัน</b> — ตั้งหน้าต่างเป็น <code>frame: false</code> · ปิดเมนูด้วย <code>Menu.setApplicationMenu(null)</code> ·
+  เพิ่ม IPC <code>window:minimize / maximize / close</code> ให้ปุ่มบนแถบสั่งงานหน้าต่างได้
+  (ตอนนี้ preload ยังไม่มีช่องทางนี้ จึงต้องเติมใน <code>main.js</code> กับ <code>preload.js</code> ด้วย)<br>
+  <b>ที่ยังทำงานเหมือนเดิม</b> — ลากขอบย่อ/ขยายหน้าต่างได้ปกติ · ดับเบิลคลิกแถบบนเพื่อขยายเต็มจอ · ปุ่มลัด Ctrl+C/V ยังใช้ได้ (เมนู Edit เป็นแค่ป้าย ไม่ใช่ตัวทำงาน)
+</div>
+
+<script>
+var btn = document.getElementById('tbtn');
+btn.addEventListener('click', function(){
+  var light = document.documentElement.getAttribute('data-theme') === 'light';
+  document.documentElement.setAttribute('data-theme', light ? 'dark' : 'light');
+  btn.textContent = light ? '🌙 สลับเป็นโหมดสว่าง' : '☀️ สลับเป็นโหมดมืด';
+});
+</script>
+</body>
+</html>

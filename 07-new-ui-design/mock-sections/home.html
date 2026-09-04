@@ -1,0 +1,37 @@
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="height:100%; display:grid; grid-template-columns:1.05fr 1fr; gap:18px; min-height:0">
+        <div style="background:linear-gradient(160deg,{{ T.tint }},{{ T.surface }}); border:1px solid {{ T.border }}; border-radius:24px; padding:30px 32px; display:flex; flex-direction:column; min-height:0">
+          <div style="font-size:12.5px; font-weight:600; color:{{ T.accentHi }}; letter-spacing:.6px">วันอังคาร 2 ก.ย. · 18:20 น.</div>
+          <div style="font-size:34px; font-weight:700; line-height:1.2; margin-top:8px">พร้อมไลฟ์รอบเย็น<br>หรือยัง คุณเอ</div>
+          <div style="font-size:14px; color:{{ T.muted }}; margin-top:8px">ค่าตั้งจากรอบล่าสุดโหลดไว้แล้ว — กดปุ่มเดียวไลฟ์ต่อได้เลย</div>
+          <div style="display:flex; gap:12px; margin-top:22px; align-items:center; background:{{ T.bg }}; border:1px solid {{ T.border }}; border-radius:18px; padding:14px 16px">
+            <div style="width:54px; aspect-ratio:9/16; border-radius:8px; background:linear-gradient(160deg,#2B3446,#161B26); display:grid; place-items:center; font-size:10px; color:{{ T.muted }}; font-family:'IBM Plex Mono',monospace">9:16</div>
+            <div style="flex:1; min-width:0"><div style="display:flex; align-items:center; gap:8px"><span style="font-size:15px; font-weight:700">Preset · รอบเย็น</span><span style="font-size:11px; font-weight:700; color:{{ T.green }}; background:rgba({{ T.greenRgb }},.12); padding:2px 8px; border-radius:999px">พร้อม</span></div><div style="font-size:12.5px; color:{{ T.muted }}; margin-top:3px">{{ curShop.name }} · 3 คลิป · 3 layer · ปักทุก 3 นาที · แชท AI เปิด</div><div style="font-size:12px; color:{{ T.faint }}; margin-top:2px">รอบล่าสุด 2 ชม.ที่แล้ว · 2:14 ชม. · จบปกติ</div></div>
+            <div style="display:flex; gap:6px"><sc-for list="{{ presetChips }}" as="pc" hint-placeholder-count="2"><span style="{{ pc.style }}" onClick="{{ pc.onClick }}">{{ pc.label }}</span></sc-for></div>
+          </div>
+          <div style="flex:1"></div>
+          <button style="height:64px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:{{ T.primary }}; color:#fff; box-shadow:inset 0 1px 0 rgba(255,255,255,.07); font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:12px; box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 3px 10px rgba({{ T.blueRgb }},.28)" style-hover="background:{{ T.primaryHover }}" onClick="{{ startLive }}">▶ เริ่มไลฟ์เลย</button>
+          <div style="display:flex; align-items:center; gap:12px; margin-top:12px">
+            <span style="font-size:12px; color:{{ T.faint }}; flex:1">ห้อง LIVE จริงจะถูกสร้างเมื่อกดปุ่มนี้เท่านั้น</span>
+            <button style="height:40px; padding:0 16px; border:1px solid {{ T.border }}; border-radius:999px; background:none; color:{{ T.muted }}; font-size:13px; font-weight:600; cursor:pointer" style-hover="color:{{ T.text }}; border-color:{{ T.borderHi }}" onClick="{{ goLiveSetup }}">+ ตั้งค่าใหม่จากศูนย์ (3 ขั้น)</button>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-rows:auto 1fr 1.3fr; gap:14px; min-height:0">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px">
+            <div style="background:{{ T.surface }}; border:1px solid {{ T.border }}; border-radius:18px; padding:16px 18px"><div style="font-size:12px; color:{{ T.muted }}">ไลฟ์สัปดาห์นี้</div><div style="font-size:26px; font-weight:600; font-family:'IBM Plex Mono',monospace; margin-top:4px">12 <span style="font-size:12px; font-family:'IBM Plex Sans Thai',sans-serif; color:{{ T.muted }}">ครั้ง · 34 ชม.</span></div></div>
+            <div style="background:{{ T.surface }}; border:1px solid {{ T.border }}; border-radius:18px; padding:16px 18px"><div style="font-size:12px; color:{{ T.muted }}">ยอดขาย 7 วัน</div><div style="font-size:26px; font-weight:600; font-family:'IBM Plex Mono',monospace; margin-top:4px; color:{{ T.green }}">128,400 <span style="font-size:12px; font-family:'IBM Plex Sans Thai',sans-serif; color:{{ T.muted }}">บาท</span></div></div>
+            <div style="background:{{ T.surface }}; border:1px solid {{ T.border }}; border-radius:18px; padding:16px 18px"><div style="font-size:12px; color:{{ T.muted }}">จบปกติ</div><div style="font-size:26px; font-weight:600; font-family:'IBM Plex Mono',monospace; margin-top:4px">11<span style="color:{{ T.faint }}">/12</span></div></div>
+          </div>
+          <div style="background:{{ T.surface }}; border:1px solid {{ T.border }}; border-radius:18px; padding:16px 20px; display:flex; flex-direction:column; min-height:0">
+            <div style="display:flex; align-items:center"><span style="font-size:14px; font-weight:600">ยอดขายรายวัน · 7 วัน</span><div style="flex:1"></div><a href="#" onClick="{{ goPerf }}" style="font-size:12.5px; font-weight:600">ดูผลงาน →</a></div>
+            <div style="flex:1; display:flex; align-items:flex-end; gap:10px; margin-top:10px; min-height:0"><sc-for list="{{ weekBars }}" as="b" hint-placeholder-count="7"><div style="flex:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:6px"><div style="{{ b.style }}"></div><span style="font-size:11px; color:{{ T.faint }}">{{ b.label }}</span></div></sc-for></div>
+          </div>
+          <div style="background:{{ T.surface }}; border:1px solid {{ T.border }}; border-radius:18px; overflow:hidden; display:flex; flex-direction:column; min-height:0">
+            <div style="padding:12px 20px; font-size:14px; font-weight:600; border-bottom:1px solid {{ T.surface2 }}; display:flex"><span>ไลฟ์ล่าสุด</span><div style="flex:1"></div><a href="#" onClick="{{ goPerf }}" style="font-size:12.5px; font-weight:600">ทั้งหมด →</a></div>
+            <div style="flex:1; min-height:0; overflow:auto; display:flex; flex-direction:column; justify-content:space-around; gap:6px; padding:6px 20px">
+              <sc-for list="{{ history }}" as="h" hint-placeholder-count="4"><div style="display:flex; align-items:center; gap:12px; font-size:13px"><span style="{{ h.dotStyle }}"></span><span style="width:110px; color:{{ T.muted }}; font-size:12.5px">{{ h.date }}</span><span style="width:70px; font-weight:600">{{ h.acc }}</span><span style="width:80px; font-family:'IBM Plex Mono',monospace; font-size:12.5px">{{ h.dur }}</span><span style="{{ h.stStyle }}">{{ h.st }}</span><div style="flex:1"></div><span style="font-family:'IBM Plex Mono',monospace; font-size:12.5px">{{ h.gmv }}</span></div></sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>

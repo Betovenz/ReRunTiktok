@@ -1,0 +1,4 @@
+owner: panthilasii
+repo: rerun-studio-releases
+provider: github
+updaterCacheDirName: rerun-studio-updater

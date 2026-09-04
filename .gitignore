@@ -1,0 +1,10 @@
+node_modules/
+02-updater-cache/
+03-update-installer-payload/
+04-updated-packaged-app/
+_old-ui-backup/
+
+*.exe
+*.dmg
+*.zip
+*.7z
